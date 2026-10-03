@@ -80,7 +80,7 @@ function Index() {
 
       <main className="relative z-10 mx-auto max-w-xl px-5 pb-20">
         <header className="animate-rise pt-20 text-center">
-          <p className="font-serif text-2xl italic text-muted-foreground">Te invito a mi Primera Comunión</p>
+          <p className="font-serif text-2xl italic text-muted-foreground">Te invito a Mi Primera Comunión</p>
           {/*<h1 className="mt-2 font-serif text-5xl font-semibold text-gold sm:text-6xl">Joaquín Ignacio</h1>*/}
         </header>
 
