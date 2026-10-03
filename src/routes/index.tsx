@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Primera Comunión de Joaquín Ignacio" },
-      { name: "description", content: "Te invito a mi Primera Comunión — Sábado 24 de Octubre a las 12:00 hs en la Parroquia de Urca." },
+      { name: "description", content: "Te invito a Mi Primera Comunión — Sábado 24 de Octubre a las 12:00 hs en la Parroquia de Urca." },
       { property: "og:title", content: "Primera Comunión de Joaquín Ignacio" },
       { property: "og:description", content: "Sábado 24 de Octubre a las 12:00 hs en la Parroquia de Urca." },
       { property: "og:type", content: "website" },
