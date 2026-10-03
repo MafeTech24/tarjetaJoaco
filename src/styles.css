@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --radius-lg: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ivory: var(--ivory);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Nunito Sans", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.18 0.05 265);
+  --foreground: oklch(0.95 0.02 85);
+  --card: oklch(0.22 0.06 265);
+  --primary: oklch(0.78 0.12 80);
+  --primary-foreground: oklch(0.18 0.05 265);
+  --muted-foreground: oklch(0.82 0.03 85);
+  --ivory: oklch(0.96 0.02 88);
+  --gold: oklch(0.78 0.12 80);
+  --gold-soft: oklch(0.78 0.12 80 / 35%);
+  --border: oklch(0.78 0.12 80 / 40%);
+  --destructive: oklch(0.8 0.12 40);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { overflow-x: hidden; }
+  body {
+    background-color: var(--background);
+    background-image: radial-gradient(ellipse at top, oklch(0.28 0.08 265) 0%, transparent 60%);
+    background-size: 100% 100%;
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+/* ───────── Cascading Starlight Background ───────── */
+.starlight {
+  background: radial-gradient(ellipse 120% 90% at 50% 0%, #070e24 0%, #050a1a 55%, #030611 100%);
+}
+
+/* Capa 1: estrellas titilantes */
+.starlight-twinkle {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--star-color);
+  box-shadow: 0 0 4px 0.5px var(--star-color);
+  opacity: 0.2;
+  will-change: transform, opacity;
+  animation-name: starlight-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes starlight-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.25); }
+}
+
+/* Capa 2: cascada descendente */
+.starlight-fall {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transform: translate3d(0, -10vh, 0);
+  will-change: transform, opacity;
+  animation-name: starlight-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.starlight-dot {
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--star-color) 0%, color-mix(in oklab, var(--star-color) 60%, transparent) 55%, transparent 100%);
+  box-shadow: 0 0 6px 1px color-mix(in oklab, #e0ae57 55%, transparent);
+}
+.starlight-sparkle {
+  filter: drop-shadow(0 0 4px color-mix(in oklab, #e0ae57 80%, transparent));
+}
+@keyframes starlight-fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
+  10%  { opacity: var(--peak, 0.9); }
+  85%  { opacity: var(--peak, 0.9); }
+  100% { transform: translate3d(var(--drift, 0), 110vh, 0) rotate(180deg); opacity: 0; }
+}
+
+/* Ecualizador del botón de música */
+.eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.eq i { display: block; width: 3px; height: 4px; border-radius: 2px; background: var(--gold); transition: height .3s; }
+.eq-on i { animation: eq-bounce .9s ease-in-out infinite; }
+.eq-on i:nth-child(2) { animation-delay: -.3s; }
+.eq-on i:nth-child(3) { animation-delay: -.6s; }
+@keyframes eq-bounce { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .starlight-twinkle, .starlight-fall, .eq-on i { animation: none; }
+  .starlight-twinkle { opacity: 0.6; transform: none; }
+  /* Las partículas quedan como estrellas estáticas repartidas por la pantalla */
+  .starlight-fall { top: var(--rm-top); transform: none; opacity: calc(var(--peak, 0.8) * 0.7); }
+}
+
+@utility arch {
+  border-radius: 999px 999px 1.25rem 1.25rem;
+  border: 1px solid var(--gold);
+  background: linear-gradient(180deg, oklch(0.26 0.07 265), oklch(0.2 0.05 265));
+  box-shadow: 0 0 0 6px var(--background), 0 0 0 7px var(--gold-soft), 0 20px 60px -20px oklch(0.78 0.12 80 / 30%);
+}
+
+@utility gold-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: 999px; padding: .85rem 1.6rem; font-weight: 700; font-size: 1rem;
+  background: linear-gradient(135deg, oklch(0.85 0.1 85), oklch(0.7 0.13 75));
+  color: var(--primary-foreground);
+  transition: transform .2s, box-shadow .2s;
+  &:hover { box-shadow: 0 6px 24px -6px var(--gold); transform: translateY(-1px); }
+  &:focus-visible { outline: 2px solid var(--ivory); outline-offset: 3px; }
+}
+
+@utility ghost-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: 999px; padding: .75rem 1.4rem; font-weight: 600;
+  border: 1px solid var(--gold); color: var(--gold);
+  &:hover { background: var(--gold-soft); }
+  &:focus-visible { outline: 2px solid var(--ivory); outline-offset: 3px; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes glow { 0%,100% { filter: drop-shadow(0 0 8px oklch(0.78 0.12 80 / 40%)); } 50% { filter: drop-shadow(0 0 20px oklch(0.78 0.12 80 / 70%)); } }
+@utility animate-rise { animation: rise 1s ease-out both; }
+@utility animate-glow { animation: glow 5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+html { scroll-behavior: smooth; }
