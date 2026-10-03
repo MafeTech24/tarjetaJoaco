@@ -4,6 +4,11 @@ import caliz from "@/assets/caliz.png";
 import { StarlightBackground } from "@/components/StarlightBackground";
 import { BackgroundMusic } from "@/components/BackgroundMusic";
 
+// URL pública del sitio (sin "/" final). WhatsApp necesita la URL absoluta de la imagen.
+// Ej: "https://primera-comunion-joaco.lovable.app"
+const SITE_URL = "";
+const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -12,7 +17,15 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Primera Comunión de Joaquín Ignacio" },
       { property: "og:description", content: "Sábado 24 de Octubre a las 12:00 hs en la Parroquia de Urca." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      ...(SITE_URL ? [{ property: "og:url", content: SITE_URL }] : []),
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:secure_url", content: OG_IMAGE },
+      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "877" },
+      { property: "og:image:alt", content: "Mi Primera Comunión — Joaquín Ignacio" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
   }),
   component: Index,
@@ -79,14 +92,10 @@ function Index() {
           <Divider />
           <p className="font-serif text-3xl font-semibold leading-tight text-gold">Joaquín Ignacio<br />López Paris</p>
           <Divider />
-          <p className="text-base text-muted-foreground">Tengo la alegría de invitarte a la celebración de mi Primera Comunión:</p>
-          <p className="mt-4 font-serif text-xl text-ivory">Sábado 24 de Octubre a las 12:00 hs<br />En la Parroquia de Urca</p>
+          <p className="text-base text-muted-foreground">Tengo la alegría de invitarte a la celebración de Mi Primera Comunión:</p>
+          <p className="mt-4 font-serif text-xl text-ivory">El día Sábado 24 de Octubre a las 12:00 hs<br />En la Parroquia de Urca</p>
           <p className="mt-4 text-base text-muted-foreground">Y luego te espero a partir de las 13:30 hs en el<br /><span className="font-serif text-xl text-ivory">Complejo Las Aldeas de Valle Escondido.</span></p>
         </article>
-
-        <div className="mt-8 text-center">
-          <a href="#detalles" className="gold-btn">Ver los detalles ↓</a>
-        </div>
 
         <section id="detalles" className="scroll-mt-16 pt-20" aria-labelledby="t-detalles">
           <h2 id="t-detalles" className="text-center font-serif text-4xl text-gold">Dos momentos para compartir</h2>
